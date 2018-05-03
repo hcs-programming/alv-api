@@ -17,7 +17,7 @@ class Student extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'image' => $this->picture,
+            'image' => env('APP_URL') . '/storage/hcs/' .$this->picture,
             'attendance' => null,
             'lunch' => null,
             'beard' => null,
