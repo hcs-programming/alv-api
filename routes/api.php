@@ -14,3 +14,4 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/students/{class}', 'StudentController@allInClass');
+Route::post('/students/{class}', 'StudentController@saveClass');

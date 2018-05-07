@@ -18,12 +18,12 @@ class Student extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'image' => env('APP_URL') . '/storage/hcs/' .$this->picture,
-            'attendance' => null,
-            'lunch' => null,
-            'beard' => null,
-            'belt' => null,
-            'shoes' => null,
-            'uniform' => null,
+            'attendance' => $this->entry['attendance'],
+            'lunch' => $this->entry['lunch'],
+            'beard' => $this->entry['beard'],
+            'belt' => $this->entry['belt'],
+            'shoes' => $this->entry['shoes'],
+            'uniform' => $this->entry['uniform'],
         ];
     }
 }
