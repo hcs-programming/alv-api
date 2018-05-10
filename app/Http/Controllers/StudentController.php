@@ -58,7 +58,7 @@ class StudentController extends Controller
 
                 $grades->push(['name' => $grade, 'people' => StudentResource::collection($students)]);
             } else {
-                $grades->push([$grade => null]);
+                $grades->push(['name' => $grade, 'people' => null]);
             }
         }
 
