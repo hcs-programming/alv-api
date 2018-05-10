@@ -10,6 +10,23 @@ use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
+    private $grades = [
+        'K4',
+        'K5',
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+        '6',
+        '7',
+        '8',
+        '9',
+        '10',
+        '11',
+        '12',
+    ];
+
     public function allInClass($class)
     {
         $today = $this->today($class);
@@ -22,6 +39,30 @@ class StudentController extends Controller
         }
 
         return StudentResource::collection($students);
+    }
+
+    public function todaysEntries()
+    {
+        $days = Day::whereDay('day', date('d'))->get();
+        $days = $days->keyBy('grade');
+        $grades = collect();
+
+        foreach($this->grades as $grade) {
+            $gradeDay = $days->get($grade);
+
+            if($gradeDay) {
+                $students = Student::where('grade', $grade)->get();
+                $students->load(['entry' => function($query) use ($gradeDay) {
+                    $query->where('day_id', $gradeDay->id);
+                }]);
+
+                $grades->push([$grade => StudentResource::collection($students)]);
+            } else {
+                $grades->push([$grade => null]);
+            }
+        }
+
+        return $grades;
     }
 
     public function saveClass(Request $request, $class)
