@@ -56,7 +56,7 @@ class StudentController extends Controller
                     $query->where('day_id', $gradeDay->id);
                 }]);
 
-                $grades->push([$grade => StudentResource::collection($students)]);
+                $grades->push(['name' => $grade, 'people' => StudentResource::collection($students)]);
             } else {
                 $grades->push([$grade => null]);
             }
